@@ -10,6 +10,7 @@ const operatorButtons = document.querySelectorAll("[data-operator]");
 const allClearButton = document.querySelector("[data-all-clear]");
 const deleteButton = document.querySelector("[data-delete]");
 const equalButton = document.querySelector("[data-equals]"); // Si no tenemos que acceder ni a un id ni a una clase debemos usar el selector de atributos []
+const calculatorContainer = document.querySelector(".calculator-grid");
 
 // Constructor
 class Calculator {
@@ -128,5 +129,46 @@ operatorButtons.forEach(button => {
 
 equalButton.addEventListener("click", () => {
   calculator.calculate();
+  calculator.updateDisplay();
+})
+
+// Eventos de teclado
+window.addEventListener("keyup", (e) => {
+  switch (e.key) {
+    case "Escape":
+      calculator.allClear();
+      break;
+    case "Backspace":
+    case "Delete":
+      calculator.deleteDigit();
+      break;
+    case "1":
+    case "2":
+    case "3":
+    case "4":
+    case "5":
+    case "6":
+    case "7":
+    case "8":
+    case "9":
+    case ".":
+    case "0":
+      calculator.appendDigit(e.key);
+      break;
+    case "+":
+    case "-":
+    case "*":
+      calculator.selectOperator(e.key);
+      break;
+    case "/":
+      calculator.selectOperator("÷");
+      break;
+    case "=":
+    case "Enter":
+      calculator.calculate();
+      break;
+    default:
+      break;
+  }
   calculator.updateDisplay();
 })
