@@ -39,6 +39,11 @@ class Calculator {
     // que no haya multiples ceros
     if (digit === "0" && this.current === "0") return;
 
+    // si el digito es 0 y se añade un numero, el se remueve el 0
+    if (this.current === "0" && digit !== "0" && digit !== ".") {
+      this.current = "";
+    };
+
     // si el digito es "." y no hay ningun digito, añadir el 0
     if (digit === "." && this.current === "") this.current = "0";
 
