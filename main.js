@@ -173,7 +173,7 @@ window.addEventListener("keyup", (e) => {
       calculator.calculate();
       break;
     default:
-      break;
-  }
-  calculator.updateDisplay();
-})
+      return; //Para que no se redibuje la ventana con cualquier tecla, si se aprieta una tecla que no sea las del switch, devuelve un early return.
+    }
+      calculator.updateDisplay();
+  })
