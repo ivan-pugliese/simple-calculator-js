@@ -96,12 +96,29 @@ class Calculator {
   }
 
   updateDisplay() {
-    this.currentOperand.innerText = this.current;
+    this.currentOperand.innerText = this.formatNumber(this.current);
     if (this.operation !== undefined) {
-      this.previousOperand.innerText = `${this.previous} ${this.operation}`
+      this.previousOperand.innerText = `${this.formatNumber(this.previous)} ${this.operation}`
     } else {
       this.previousOperand.innerText = "";
     }
+  }
+
+  formatNumber(numberAsString) {
+    if (numberAsString === "") return "0";
+        
+    let formattedString = "";
+    const intDigits = parseFloat(numberAsString.split(".")[0]);
+    const floatDigitsAsString = numberAsString.split(".")[1];
+
+
+    if (floatDigitsAsString === undefined) {
+      formattedString = intDigits.toLocaleString("en-us")
+    } else {
+      formattedString = `${intDigits.toLocaleString("en-us")}.${floatDigitsAsString}`
+    }
+
+    return formattedString;
   }
 }
 
