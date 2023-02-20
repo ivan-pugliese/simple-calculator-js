@@ -11,6 +11,7 @@ const allClearButton = document.querySelector("[data-all-clear]");
 const deleteButton = document.querySelector("[data-delete]");
 const equalButton = document.querySelector("[data-equals]"); // Si no tenemos que acceder ni a un id ni a una clase debemos usar el selector de atributos []
 const calculatorContainer = document.querySelector(".calculator-grid");
+const allButtons = [...numbersButtons, ...operatorButtons, allClearButton, deleteButton, equalButton];
 
 // Constructor
 class Calculator {
@@ -120,6 +121,15 @@ class Calculator {
 
     return formattedString;
   }
+
+  animateButton(buttonValue) {
+    const buttonPressed = allButtons.find(button => button.innerText === buttonValue);
+
+    buttonPressed.classList.add("key-pressed");
+    setTimeout(() => {
+      buttonPressed.classList.remove("key-pressed")
+    }, 150);
+  }
 }
 
 const calculator = new Calculator(dataPreviousOperand,dataCurrentOperand);
@@ -159,10 +169,12 @@ window.addEventListener("keyup", (e) => {
   switch (e.key) {
     case "Escape":
       calculator.allClear();
+      calculator.animateButton("AC");
       break;
     case "Backspace":
     case "Delete":
       calculator.deleteDigit();
+      calculator.animateButton("DEL");
       break;
     case "1":
     case "2":
@@ -176,6 +188,7 @@ window.addEventListener("keyup", (e) => {
     case ".":
     case "0":
       calculator.appendDigit(e.key);
+      calculator.animateButton(e.key)
       break;
     case "+":
     case "-":
@@ -184,13 +197,16 @@ window.addEventListener("keyup", (e) => {
       break;
     case "/":
       calculator.selectOperator("÷");
+      calculator.animateButton("÷");
       break;
     case "=":
     case "Enter":
       calculator.calculate();
+      calculator.animateButton("=");
       break;
     default:
       return; //Para que no se redibuje la ventana con cualquier tecla, si se aprieta una tecla que no sea las del switch, devuelve un early return.
     }
-      calculator.updateDisplay();
+  calculator.updateDisplay();
+  calculator.animateButton();
   })

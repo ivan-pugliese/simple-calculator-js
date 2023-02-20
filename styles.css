@@ -33,11 +33,17 @@ body {
   font-size: 3rem;
   outline: none;
   background-color: #FFBCA8;
-  /* border: 2px solid #f1f1f1; */
+  transition: background-color 0.2s linear;
 }
 
 .calculator-grid > button:hover {
-  background-color: #fff;
+  background-color: #f1f1f1;
+}
+
+.calculator-grid > button:active,
+.calculator-grid > button.key-pressed {
+  background-color: #f1f1f1;
+  transform: translate(2px,2px);
 }
 
 .display {
@@ -54,14 +60,15 @@ body {
   word-break: break-all;
 }
 
-
 .previous-operand {
   color: rgba(255,255,255,0.75);
   font-size: 3rem;
+  text-align: right;
 }
 
 .current-operand {
  font-size: 4rem;
+ text-align: right;
 }
 
 .span-two {
